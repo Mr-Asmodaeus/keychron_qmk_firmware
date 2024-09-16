@@ -332,4 +332,7 @@ extern last_hit_t g_last_hit_tracker;
 #endif
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
+#ifdef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+extern bool g_rgb_matrix_mode_uses_typing_heatmap;
+#endif // ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif

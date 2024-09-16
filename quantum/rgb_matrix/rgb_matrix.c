@@ -68,10 +68,14 @@ rgb_config_t rgb_matrix_config; // TODO: would like to prefix this with g_ for g
 uint32_t     g_rgb_timer;
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+#ifdef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+bool g_rgb_matrix_mode_uses_typing_heatmap = false;
+#endif // ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif // RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 last_hit_t g_last_hit_tracker;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
 
 // internals
 #ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
@@ -214,7 +218,7 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
     if (pressed)
 #    endif // defined(RGB_MATRIX_KEYRELEASES)
     {
-        if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
+        if (g_rgb_matrix_mode_uses_typing_heatmap || rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
             process_rgb_matrix_typing_heatmap(row, col);
         }
     }
