@@ -32,18 +32,6 @@
         "--header-insertion=never"
     ],
 
-    "terminal.integrated.defaultProfile.windows": "QMK_MSYS",
-    "terminal.integrated.profiles.windows": {
-        "QMK_MSYS": {
-            "path": "C:/QMK_MSYS/usr/bin/bash.exe",
-            "env": {
-                "MSYSTEM": "MINGW64",
-                "CHERE_INVOKING": "1"
-            },
-            "args": ["--login"]
-        }
-    },
-
     "terminal.integrated.cursorStyle": "line"
 
 }
