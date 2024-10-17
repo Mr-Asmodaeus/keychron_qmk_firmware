@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [WIN_BASE] = LAYOUT_tkl_ansi(
-        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,     KC_MUTE,    KC_PSCR,  KC_CTANA, QK_LEAD,
+        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,     KC_MUTE,    KC_SCRL,  KC_PAUS, QK_LEAD,
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    KC_INS,   KC_HOME,  KC_PGUP,
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,    KC_BSLS,    KC_DEL,   KC_END,   KC_PGDN,
         KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,
@@ -96,7 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     del_mods(mod_state);
                     SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7)));
-                    add_mods(mod_state);                    
+                    add_mods(mod_state);
                     return false;
                 }
             }
@@ -155,6 +155,7 @@ static int rgb_matrix_previous_mode;
 static int rgb_matrix_previous_speed;
 static HSV rgb_matrix_previous_hsv;
 
+extern uint16_t leader_time;
 
 void leader_start_user(void) {
     rgb_matrix_previous_mode = rgb_matrix_get_mode();
@@ -185,27 +186,15 @@ void leader_end_user(void) {
     if (leader_sequence_two_keys(KC_P, KC_K)) {
         SEND_STRING_DELAY(LM_PK,SEND_STRING_DELAY_VALUE);
     }else
-
     if (leader_sequence_two_keys(KC_E, KC_G)) {
         SEND_STRING_DELAY(LM_EG,SEND_STRING_DELAY_VALUE);
+    }else
+    if (leader_sequence_two_keys(KC_E, KC_V)) {
+        SEND_STRING_DELAY(LM_EV,SEND_STRING_DELAY_VALUE);
     }else
     if (leader_sequence_two_keys(KC_E, KC_B)) {
         SEND_STRING_DELAY(LM_EB,SEND_STRING_DELAY_VALUE);
     }
-
-//para testar
-    else
-    if (leader_sequence_two_keys(KC_O, KC_M)) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7)));
-    }else
-    if (leader_sequence_two_keys(KC_O, KC_F)) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6)));
-    }
-
-
-
-
-
     rgb_matrix_mode_noeeprom (rgb_matrix_previous_mode);
     rgb_matrix_sethsv_noeeprom (rgb_matrix_previous_hsv.h,rgb_matrix_previous_hsv.s,rgb_matrix_previous_hsv.v);
     rgb_matrix_set_speed_noeeprom(rgb_matrix_previous_speed);
